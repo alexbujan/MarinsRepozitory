@@ -1,0 +1,22 @@
+ip: 192.168.56.50
+memory: 2048
+cpus: 2
+provider: virtualbox
+authorize: D:\DepeD\Salvare\Utile\SSH Key\id_rsa.pub
+#keys:
+#    - ~/.ssh/id_rsa
+folders:
+    -
+        map: C:\Users\alexanbu\Documents\NetBeansProjects\MarinsRepozitory
+        to: /home/vagrant/training
+        type: "nfs"
+sites:
+    -
+        map: marin.travel
+        to: /home/vagrant/training/public
+        type: symfony4
+        php: "7.1"
+databases:
+    - travel
+name: training
+hostname: training
