@@ -9,7 +9,7 @@ folders:
     -
         map: C:\Users\alexanbu\Documents\NetBeansProjects\MarinsRepozitory
         to: /home/vagrant/training
-        type: "nfs"
+        #type: "nfs"
 sites:
     -
         map: marin.travel
