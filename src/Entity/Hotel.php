@@ -3,24 +3,32 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\HotelRepository")
- 
+ * @ApiResource(
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}},
+ *     attributes={
+ *         "normalization_context"={"groups"={"read"}},
+ *         "denormalization_context"={"groups"={"write"}}
+ *     }
+ * )
  */
 class Hotel
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-
+     * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-
+     * @Groups({"read"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="hotels")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -32,43 +40,43 @@ class Hotel
     private $remoteId;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=100)
      */
     private $name;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=100)
      */
     private $location;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="date")
      */
     private $start;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="date")
      */
     private $end;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
     private $stars;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="decimal", scale=2)
      */
     private $price;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="boolean")
      */
     private $owned;
@@ -150,5 +158,8 @@ class Hotel
 
     function setRemoteId($remoteId) {
         $this->remoteId = $remoteId;
+    }
+    public function __toString() {
+        return $this->name;
     }
 }

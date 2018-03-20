@@ -3,7 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Serializer\Annotation\Groups;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AgencyRepository")
@@ -13,19 +14,19 @@ class Agency
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-
+     * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=100)
      */
     private $name;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=255)
      */
     private $url;

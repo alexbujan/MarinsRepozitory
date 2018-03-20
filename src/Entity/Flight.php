@@ -3,24 +3,32 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\FlightRepository")
-
+ * @ApiResource(
+ *     collectionOperations={"get"={"method"="GET"}},
+ *     itemOperations={"get"={"method"="GET"}},
+ *     attributes={
+ *         "normalization_context"={"groups"={"read"}},
+ *         "denormalization_context"={"groups"={"write"}}
+ *     }
+ * )
  */
 class Flight
 {
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
-  
+     * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
     private $id;
 
     /**
-
+     * @Groups({"read"})
      * @ORM\ManyToOne(targetEntity="App\Entity\Agency", inversedBy="flights")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -32,55 +40,55 @@ class Flight
     private $remoteId;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="string", length=100)
      */
     private $airline;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="date")
      */
     private $start;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="date")
      */
     private $end;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="time")
      */
     private $timeofday;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="integer")
      */
     private $duration;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(name="from_location", type="string", length=100)
      */
     private $from;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(name="to_location", type="string", length=100)
      */
     private $to;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="decimal", scale=2)
      */
     private $price;
     
     /**
-
+     * @Groups({"read"})
      * @ORM\Column(type="boolean")
      */
     private $owned;
@@ -177,5 +185,9 @@ class Flight
 
     function setRemoteId($remoteId) {
         $this->remoteId = $remoteId;
+    }
+    
+    public function __toString() {
+        return $this->airline;
     }
 }
